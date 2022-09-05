@@ -11,5 +11,8 @@
     "url": "git+https://github.com/abatomunkuev/Fragments.git"
   },
   "author": "Andrei Batomunkuev",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
 }
