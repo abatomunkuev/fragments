@@ -19,10 +19,11 @@ Develop a new highly-scalable microservice which will help automate the processe
 
 ## Tech stack WIP
 
-| Technology                | Description                                                                                                        |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Node JS                   | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                       |
-| Amazon Web Services (AWS) | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet |
+| Technologies, Services    | Description                                                                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Node JS                   | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                 |
+| Amazon Web Services (AWS) | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                           |
+| Amazon Cognito            | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices. |
 
 ## Development
 
@@ -46,3 +47,4 @@ npm install
 - 05 Sep 2022 - Started the project, configured package.json, prettier, eslint
 - 07 Sep 2022 - Added logger, nodemon, startup scripts
 - 08 Sep 2022 - Added VSCode debug launch, updated README
+- 13 Sep 2022 - Created repo for Fragments UI Web Application - https://github.com/abatomunkuev/fragments-ui
