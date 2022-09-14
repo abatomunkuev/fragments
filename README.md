@@ -4,10 +4,10 @@ Fragments - Cloud Computing project from Cloud Computing course at Seneca Colleg
 
 ## Contents of the page
 
-- [Task](https://github.com/abatomunkuev/Fragments#task)
-- [Tech stack WIP](https://github.com/abatomunkuev/Fragments#tech-stack-wip)
-- [Development](https://github.com/abatomunkuev/Fragments#development)
-- [Log](https://github.com/abatomunkuev/Fragments#log)
+- [Task](https://github.com/abatomunkuev/fragments#task)
+- [Tech stack WIP](https://github.com/abatomunkuev/fragments#tech-stack-wip)
+- [Development](https://github.com/abatomunkuev/fragments#development)
+- [Log](https://github.com/abatomunkuev/fragments#log)
 
 ## Task
 
