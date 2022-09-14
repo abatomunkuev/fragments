@@ -1,3 +1,6 @@
+/* src/server.js
+Date created: Sep 8 2022
+*/
 // Import libraries
 // Gracefully shutdown our server
 const stoppable = require('stoppable');
@@ -10,10 +13,10 @@ const port = parseInt(process.env.PORT || 8080, 10);
 
 // Start a server listening on this port
 const server = stoppable(
-    app.listen(port, () => {
-      // Log a message that the server has started, and which port it's using.
-      logger.info({ port }, `Server started`);
-    })
+  app.listen(port, () => {
+    // Log a message that the server has started, and which port it's using.
+    logger.info({ port }, `Server started`);
+  })
 );
 // Export our server instance so other parts of our code can access it if necessary.
 module.exports = server;
