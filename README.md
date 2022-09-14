@@ -49,3 +49,6 @@ npm install
 - 07 Sep 2022 - Added logger, nodemon, startup scripts
 - 08 Sep 2022 - Added VSCode debug launch, updated README
 - 13 Sep 2022 - Created repo for Fragments UI Web Application - https://github.com/abatomunkuev/fragments-ui
+- 13 Sep 2022 - Added dotenv, passport.js, aws-jwt-verify packages.
+- 13 Sep 2022 - Updated project structure, added routes, authorization and authentication code, configured .env,
+- 13 Sep 2022 - Connected to AWS Cognito service
