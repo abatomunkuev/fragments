@@ -6,13 +6,16 @@ const express = require('express');
 // version and author from package.json
 const { version, author } = require('../../package.json');
 
+// authorization middleware
+const { authenticate } = require('../authorization');
+
 // Create a router that we can use to mount our API
 const router = express.Router();
 
 /**
  * Expose all of our API routes on /v1/* to include an API version.
  */
-router.use(`/v1`, require('./api'));
+router.use(`/v1`, authenticate(), require('./api'));
 
 // Health check route
 // If server is running, respond with 200 code "OK". If not, server isn't healthy

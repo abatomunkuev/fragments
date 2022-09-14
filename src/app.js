@@ -6,8 +6,9 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
-
+const passport = require('passport');
 const logger = require('./logger');
+const authorization = require('./authorization');
 const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
   logger,
@@ -24,6 +25,9 @@ app.use(helmet());
 app.use(cors());
 // gzip/deflate compression middleware
 app.use(compression());
+// Set up our passport authorization middleware
+passport.use(authorization.strategy());
+app.use(passport.initialize());
 
 // Define routes
 app.use('/', require('./routes'));

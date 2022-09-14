@@ -41,6 +41,7 @@ npm install
 | Start the server in debug mode       | `npm run debug` |
 
 - To debug the source code, use VSCode debugger. See (https://code.visualstudio.com/docs/editor/debugging https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
+- All configuration information in `.env`
 
 ## Log
 
