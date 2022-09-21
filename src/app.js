@@ -11,7 +11,7 @@ const logger = require('./logger');
 const authorization = require('./authorization/index');
 
 // SuccessResponse and ErrorResponse message constructors
-const responses = require('./response');
+const { createErrorResponse } = require('./response');
 
 const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
@@ -38,7 +38,7 @@ app.use('/', require('./routes'));
 
 // 404 Middleware to handle any requests for resources that can't be found
 app.use((req, res) => {
-  res.status(404).json(responses.createErrorResponse(404, 'not found'));
+  res.status(404).json(createErrorResponse(404, 'not found'));
   /*
   res.status(404).json({
     status: 'error',
@@ -61,7 +61,7 @@ app.use((err, req, res, next) => {
     logger.error({ err }, 'Error processing request');
   }
 
-  res.status(status).json(responses.createErrorResponse(status, message));
+  res.status(status).json(createErrorResponse(status, message));
   /*
   res.status(status).json({
     status: 'error',

@@ -10,7 +10,7 @@ const { version, author } = require('../../package.json');
 const { authenticate } = require('../authorization/index');
 
 // SuccessResponse and ErrorResponse message constructors
-const responses = require('../response');
+const { createSuccessResponse } = require('../response');
 
 // Create a router that we can use to mount our API
 const router = express.Router();
@@ -27,15 +27,13 @@ router.get('/', (req, res) => {
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#controlling_caching
   // See force validation
   res.setHeader('Cache-Control', 'no-cache');
-  res
-    .status(200)
-    .json(
-      responses.createSuccessResponse({
-        author,
-        githubUrl: 'https://github.com/abatomunkuev/Fragments',
-        version,
-      })
-    );
+  res.status(200).json(
+    createSuccessResponse({
+      author,
+      githubUrl: 'https://github.com/abatomunkuev/Fragments',
+      version,
+    })
+  );
   /*
   res.status(200).json({
     status: 'ok',
