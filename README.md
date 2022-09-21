@@ -52,3 +52,4 @@ npm install
 - 13 Sep 2022 - Added dotenv, passport.js, aws-jwt-verify packages.
 - 13 Sep 2022 - Updated project structure, added routes, authorization and authentication code, configured .env,
 - 13 Sep 2022 - Connected to AWS Cognito service
+- 21 Sep 2022 - Added CI GitHub Actions workflow - ESlint
