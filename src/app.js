@@ -9,6 +9,10 @@ const compression = require('compression');
 const passport = require('passport');
 const logger = require('./logger');
 const authorization = require('./authorization/index');
+
+// SuccessResponse and ErrorResponse message constructors
+const responses = require('./response');
+
 const pino = require('pino-http')({
   // Use our default logger instance, which is already configured
   logger,
@@ -34,6 +38,8 @@ app.use('/', require('./routes'));
 
 // 404 Middleware to handle any requests for resources that can't be found
 app.use((req, res) => {
+  res.status(404).json(responses.createErrorResponse(404, 'not found'));
+  /*
   res.status(404).json({
     status: 'error',
     error: {
@@ -41,6 +47,7 @@ app.use((req, res) => {
       code: 404,
     },
   });
+  */
 });
 
 // Error-handling middleware to deal with anything else
@@ -54,6 +61,8 @@ app.use((err, req, res, next) => {
     logger.error({ err }, 'Error processing request');
   }
 
+  res.status(status).json(responses.createErrorResponse(status, message));
+  /*
   res.status(status).json({
     status: 'error',
     error: {
@@ -61,6 +70,7 @@ app.use((err, req, res, next) => {
       code: status,
     },
   });
+  */
 });
 
 // Export our `app` so we can access it in server.js
