@@ -3,9 +3,6 @@ Date created: Sep 13 2022
 */
 // src/index.js
 
-// Breaking the eslint
-const unneededVariable = 'This variable is never used';
-
 // Read environment variables from an .env file (if present)
 require('dotenv').config();
 
