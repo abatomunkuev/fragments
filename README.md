@@ -53,3 +53,5 @@ npm install
 - 13 Sep 2022 - Updated project structure, added routes, authorization and authentication code, configured .env,
 - 13 Sep 2022 - Connected to AWS Cognito service
 - 21 Sep 2022 - Added CI GitHub Actions workflow - ESlint
+- 30 Sep 2022 - Created and configured EC2 instance. Installed and ran Microservice (Fragments API) on EC2.
+- 04 Oct 2022 - Added In-Memory Database Backend.
