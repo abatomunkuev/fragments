@@ -19,11 +19,12 @@ Develop a new highly-scalable microservice which will help automate the processe
 
 ## Tech stack WIP
 
-| Technologies, Services    | Description                                                                                                                                                  |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Node JS                   | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                 |
-| Amazon Web Services (AWS) | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                           |
-| Amazon Cognito            | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices. |
+| Technologies, Services           | Description                                                                                                                                                  |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Node JS                          | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                 |
+| Amazon Web Services (AWS)        | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                           |
+| Amazon Cognito                   | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices. |
+| Amazon Elastic Compute Cloud EC2 | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                    |
 
 ## Development
 
@@ -54,4 +55,4 @@ npm install
 - 13 Sep 2022 - Connected to AWS Cognito service
 - 21 Sep 2022 - Added CI GitHub Actions workflow - ESlint
 - 30 Sep 2022 - Created and configured EC2 instance. Installed and ran Microservice (Fragments API) on EC2.
-- 04 Oct 2022 - Added In-Memory Database Backend.
+- 04 Oct 2022 - Added In-Memory Database Backend. Implemented database related calls and wrote unit-tests for each call.
