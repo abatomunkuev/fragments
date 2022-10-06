@@ -28,21 +28,22 @@ const FRAGMENT_TYPES = [
 ];
 
 const validateArgs = (ownerId, content_type, size) => {
-  const { type } = contentType.parse(content_type);
   // REQUIRED ARGUMENTS
   if (!ownerId) {
     throw new Error('ownerId argument is required');
   }
-  if (!type) {
+  if (!content_type) {
     throw new Error('type argument is required');
-  } else {
-    // Check if it is in supported types
-    if (!FRAGMENT_TYPES.includes(type)) {
-      throw new Error(
-        `Unsupported type. Please see the following supported types: ${FRAGMENT_TYPES.join()}`
-      );
-    }
   }
+  const { type } = contentType.parse(content_type);
+
+  // Check if it is in supported types
+  if (!FRAGMENT_TYPES.includes(type)) {
+    throw new Error(
+      `Unsupported type. Please see the following supported types: ${FRAGMENT_TYPES.join()}`
+    );
+  }
+
   if (typeof size !== 'number') {
     throw new Error('size argument must be a number');
   }
