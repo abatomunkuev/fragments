@@ -145,4 +145,16 @@ describe('POST /v1/fragments', () => {
       'http://localhost:8080/v1/fragments/' + res.body.fragment.id
     );
   });
+
+  test('Ensure the size gets correctly calculated', async () => {
+    const data = Buffer.from('This is a fragment');
+    const size = Buffer.byteLength(data);
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain; charset=utf-8')
+      .send(data);
+
+    expect(res.body.fragment.size).toEqual(size);
+  });
 });
