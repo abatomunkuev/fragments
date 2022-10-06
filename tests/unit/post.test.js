@@ -10,7 +10,7 @@ describe('POST /v1/fragments', () => {
       .post('/v1/fragments')
       .set('Content-Type', 'text/plain')
       .send('This is a fragment');
-    expect(res.text).toBe('Unauthorized');
+    expect(res.body.error.message).toBe('Unauthorized');
     expect(res.status).toBe(401);
   });
 
@@ -21,7 +21,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/plain')
       .send('This is a fragment');
 
-    expect(res.text).toBe('Unauthorized');
+    expect(res.body.error.message).toBe('Unauthorized');
     expect(res.status).toBe(401);
   });
 

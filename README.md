@@ -58,4 +58,5 @@ npm install
 - 04 Oct 2022 - Added In-Memory Database Backend. Implemented database related calls and wrote unit-tests for each call.
 - 05 Oct 2022 - Implemented Fragment class to use Data Model and In-Memory Database and wrote unit-tests
 - 06 Oct 2022 - Added POST /fragments route with unit-tests using Fragment class
-- 06 Oct 2022 - Modified GET /fragments route, added unit-tests. Implemented GET /fragments/:id router with unit-tests
+- 06 Oct 2022 - Modified GET /fragments route, added unit-tests. Implemented GET /fragments/:id route with unit-tests
+- 06 Oct 2022 - Secured user login (email) via hashing, added unit-tests. Added custom middleware to hash user's email address
