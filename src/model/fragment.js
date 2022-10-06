@@ -27,7 +27,7 @@ const FRAGMENT_TYPES = [
   */
 ];
 
-const validateArgs = (id, ownerId, created, updated, content_type, size) => {
+const validateArgs = (ownerId, content_type, size) => {
   const { type } = contentType.parse(content_type);
   // REQUIRED ARGUMENTS
   if (!ownerId) {
@@ -54,7 +54,7 @@ const validateArgs = (id, ownerId, created, updated, content_type, size) => {
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     // Validate arguments
-    validateArgs(id, ownerId, created, updated, type, size);
+    validateArgs(ownerId, type, size);
     this.id = id || randomUUID();
     this.ownerId = ownerId;
     this.created = created || new Date().toISOString();
