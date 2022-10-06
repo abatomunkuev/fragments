@@ -60,3 +60,4 @@ npm install
 - 06 Oct 2022 - Added POST /fragments route with unit-tests using Fragment class
 - 06 Oct 2022 - Modified GET /fragments route, added unit-tests. Implemented GET /fragments/:id route with unit-tests
 - 06 Oct 2022 - Secured user login (email) via hashing, added unit-tests. Added custom middleware to hash user's email address
+- 06 Oct 2022 - Added logs

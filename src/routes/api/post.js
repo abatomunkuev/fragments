@@ -14,10 +14,13 @@ const apiUrl = process.env.API_URL || 'http://localhost:8080';
  * Creates a new fragment for the current user (i.e., authenticated user).
  */
 module.exports = async (req, res) => {
+  logger.info('User initiated POST /v1/fragments/ request');
   // Get the content type of the request
   const { type } = contentType.parse(req);
   // Check if the provided type is in the supported type list
   if (!Fragment.isSupportedType(type)) {
+    logger.warn('Error in POST /v1/fragments/, unsupported type. Sending HTTP 415 with message');
+    logger.warn(`Provided type ${type} is not supported`);
     return res
       .status(415)
       .json(
@@ -38,12 +41,15 @@ module.exports = async (req, res) => {
     await fragment.setData(buffer);
     // Retrieving added fragment
     const created_fragment = await Fragment.byId(req.user, fragment.id);
-    logger.debug(created_fragment, 'Created fragment');
+    logger.debug({ created_fragment }, 'Created fragment');
     logger.debug('String value from buffer: ' + buffer.toString());
     // Set Location header
+    logger.debug({ location: apiUrl + '/v1/fragments/' + fragment.id }, 'Location');
     res.location(apiUrl + '/v1/fragments/' + fragment.id);
     return res.status(201).json(createSuccessResponse({ fragment: created_fragment }));
   } catch (error) {
+    logger.error('Error in POST /v1/fragments/. Sending HTTP 500 with message');
+    logger.error(error, 'Unhandled error');
     return res.status(500).json(createErrorResponse(500, error));
   }
 };
