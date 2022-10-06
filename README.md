@@ -56,3 +56,5 @@ npm install
 - 21 Sep 2022 - Added CI GitHub Actions workflow - ESlint
 - 30 Sep 2022 - Created and configured EC2 instance. Installed and ran Microservice (Fragments API) on EC2.
 - 04 Oct 2022 - Added In-Memory Database Backend. Implemented database related calls and wrote unit-tests for each call.
+- 05 Oct 2022 - Implemented Fragment class to use Data Model and In-Memory Database and wrote unit-tests
+- 06 Oct 2022 - Added POST /fragments route with unit-tests using Fragment class

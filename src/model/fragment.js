@@ -169,3 +169,4 @@ class Fragment {
 }
 
 module.exports.Fragment = Fragment;
+module.exports.FRAGMENT_TYPES = FRAGMENT_TYPES;

@@ -39,15 +39,6 @@ app.use('/', require('./routes'));
 // 404 Middleware to handle any requests for resources that can't be found
 app.use((req, res) => {
   res.status(404).json(createErrorResponse(404, 'not found'));
-  /*
-  res.status(404).json({
-    status: 'error',
-    error: {
-      message: 'not found',
-      code: 404,
-    },
-  });
-  */
 });
 
 // Error-handling middleware to deal with anything else
@@ -62,15 +53,6 @@ app.use((err, req, res, next) => {
   }
 
   res.status(status).json(createErrorResponse(status, message));
-  /*
-  res.status(status).json({
-    status: 'error',
-    error: {
-      message,
-      code: status,
-    },
-  });
-  */
 });
 
 // Export our `app` so we can access it in server.js

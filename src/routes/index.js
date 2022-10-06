@@ -30,18 +30,10 @@ router.get('/', (req, res) => {
   res.status(200).json(
     createSuccessResponse({
       author,
-      githubUrl: 'https://github.com/abatomunkuev/Fragments',
+      githubUrl: 'https://github.com/abatomunkuev/fragments',
       version,
     })
   );
-  /*
-  res.status(200).json({
-    status: 'ok',
-    author,
-    githubUrl: 'https://github.com/abatomunkuev/Fragments',
-    version,
-  });
-  */
 });
 
 module.exports = router;
