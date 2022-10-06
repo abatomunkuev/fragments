@@ -5,6 +5,7 @@ const { Fragment, FRAGMENT_TYPES } = require('../../model/fragment');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
+const logger = require('../../logger');
 
 // fragments microservice API, defaults to localhost:8080
 const apiUrl = process.env.API_URL || 'http://localhost:8080';
@@ -29,6 +30,7 @@ module.exports = async (req, res) => {
   // Get the raw binary data; express.raw() middleware stores Buffer in req.body
   const buffer = req.body;
   try {
+    logger.info('POST route: creating Fragment');
     const fragment = new Fragment({ ownerId: req.user, type: type });
     // Saving the Fragment metadata
     await fragment.save();
@@ -36,6 +38,8 @@ module.exports = async (req, res) => {
     await fragment.setData(buffer);
     // Retrieving added fragment
     const created_fragment = await Fragment.byId(req.user, fragment.id);
+    logger.debug(created_fragment, 'Created fragment');
+    logger.debug('String value from buffer: ' + buffer.toString());
     // Set Location header
     res.location(apiUrl + '/v1/fragments/' + fragment.id);
     return res.status(201).json(createSuccessResponse({ fragment: created_fragment }));
