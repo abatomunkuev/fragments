@@ -1,0 +1,34 @@
+#
+# Goal: limit the size of our Built Context (the build context includes all of the files and directories).
+# Typically, that's the in the same directory as your Dockerfile. 
+# If we don't specify any files to ignore, Docker will send everything from this directory down to the Docker Daemon.
+
+# CI/CD workflow
+.github/
+
+# VsCode configurations
+.vscode/
+
+# Installed dependencies
+node_modules/
+
+# Unit testing related
+tests/
+jest*
+coverage/
+# Exception 
+!tests/.htpasswd
+
+# Environment variables
+.env
+
+# Linter and code formatter configs
+.eslintrc.js
+.prettier*
+
+# GitHub related
+.git/
+.gitignore
+
+# Output of 'npm pack'
+*.tgz
