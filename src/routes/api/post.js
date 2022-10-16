@@ -40,13 +40,13 @@ module.exports = async (req, res) => {
     // Saving the Fragment's raw data
     await fragment.setData(buffer);
     // Retrieving added fragment
-    const created_fragment = await Fragment.byId(req.user, fragment.id);
-    logger.debug({ created_fragment }, 'Created fragment');
+    const createdFragment = await Fragment.byId(req.user, fragment.id);
+    logger.debug({ createdFragment }, 'Created fragment');
     logger.debug('String value from buffer: ' + buffer.toString());
     // Set Location header
     logger.debug({ location: apiUrl + '/v1/fragments/' + fragment.id }, 'Location');
     res.location(apiUrl + '/v1/fragments/' + fragment.id);
-    return res.status(201).json(createSuccessResponse({ fragment: created_fragment }));
+    return res.status(201).json(createSuccessResponse({ fragment: createdFragment }));
   } catch (error) {
     logger.error('Error in POST /v1/fragments/. Sending HTTP 500 with message');
     logger.error(error, 'Unhandled error');
