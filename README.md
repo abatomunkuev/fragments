@@ -19,12 +19,13 @@ Develop a new highly-scalable microservice which will help automate the processe
 
 ## Tech stack WIP
 
-| Technologies, Services           | Description                                                                                                                                                  |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Node JS                          | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                 |
-| Amazon Web Services (AWS)        | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                           |
-| Amazon Cognito                   | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices. |
-| Amazon Elastic Compute Cloud EC2 | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                    |
+| Technologies, Services           | Description                                                                                                                                                                   |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node JS                          | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                                  |
+| Amazon Web Services (AWS)        | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                                            |
+| Amazon Cognito                   | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices.                  |
+| Amazon Elastic Compute Cloud EC2 | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                                     |
+| Docker                           | [Docker](https://www.docker.com) is an open platform for developing, shipping, and running applications. See [Docker Overview](https://docs.docker.com/get-started/overview/) |
 
 ## Development
 
