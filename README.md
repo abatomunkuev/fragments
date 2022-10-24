@@ -109,3 +109,4 @@ docker logs -f <id>
 - 06 Oct 2022 - Secured user login (email) via hashing, added unit-tests. Added custom middleware to hash user's email address
 - 06 Oct 2022 - Added logs
 - 16 Oct 2022 - Dockerized the project. Added Dockerfile.
+- 23 Oct 2022 - Optimized Dockerfile.
