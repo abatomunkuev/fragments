@@ -2,6 +2,8 @@
 
 Fragments - Cloud Computing project from Cloud Computing course at Seneca College.
 
+Docker Hub repository: https://hub.docker.com/repository/docker/abatomunkuev1/fragments
+
 ## Contents of the page
 
 - [Task](https://github.com/abatomunkuev/fragments#task)
@@ -49,6 +51,12 @@ npm install
 
 ### Docker Containers
 
+- Pull an image from Docker Hub
+
+```
+docker pull abatomunkuev1/fragments
+```
+
 - Build the Docker Image.
 
 ```
@@ -85,10 +93,16 @@ docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:
 docker logs <id>
 ```
 
-Docker follow the logs (keep printing them as they happen)
+- Docker follow the logs (keep printing them as they happen)
 
 ```
 docker logs -f <id>
+```
+
+- Build the image targeting the platform (Mac OS M1 Chip)
+
+```
+docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 ```
 
 ## Log
