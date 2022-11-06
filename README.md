@@ -124,3 +124,4 @@ docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 - 06 Oct 2022 - Added logs
 - 16 Oct 2022 - Dockerized the project. Added Dockerfile.
 - 23 Oct 2022 - Optimized Dockerfile. Modified GET /fragments route - now it accepts query parameter `expand` to get expanded fragments metadata. Added unit-tests.
+- 06 Nov 2022 - Added new job in CI workflow: hadolint tool that parses a Dockerfile and checks it against set of [rules](https://github.com/hadolint/hadolint#rules)
