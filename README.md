@@ -126,3 +126,4 @@ docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 - 23 Oct 2022 - Optimized Dockerfile. Modified GET /fragments route - now it accepts query parameter `expand` to get expanded fragments metadata. Added unit-tests.
 - 06 Nov 2022 - Added Linting Dockerfiles job in CI workflow: hadolint tool that parses a Dockerfile and checks it against set of [rules](https://github.com/hadolint/hadolint#rules)
 - 06 Nov 2022 - Added Automatic Build and Push to Dockehub job in CI workflow: the job builds the image and pushes it to the Docker registry (DockerHub). Added secrets in GitHub.
+- 06 Nov 2022 - Added a CD Workflow in GitHub Actions. Created Amazon Elastic Container Registry private repository.
