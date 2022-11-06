@@ -80,7 +80,7 @@ COPY --chown=node:node ./src ./src
 COPY --chown=node:node ./tests/.htpasswd ./tests/.htpasswd
 
 # Install curl for health checks
-RUN apk --update --no-cache add curl=7.80.0
+RUN apk --update --no-cache add curl=7.80.0-r4
 
 # Security (Principle of Least Privilege): Switch the user to node before we run the app
 
