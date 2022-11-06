@@ -59,6 +59,11 @@ RUN npm ci --only=production
 
 FROM node:16.18.0-alpine3.15@sha256:9598b4e253236c8003d4e4b1acde80a6ca781fc231a7e670ecc2f3183c94ea5e AS production
 
+# Define working directory - https://docs.docker.com/engine/reference/builder/#workdir
+# Use /app as our working directory
+
+WORKDIR /app
+
 # Copy the generated dependencies (node_modules/)
 # Change the ownership to node
 
@@ -75,7 +80,7 @@ COPY --chown=node:node ./src ./src
 COPY --chown=node:node ./tests/.htpasswd ./tests/.htpasswd
 
 # Install curl for health checks
-RUN apk --update --no-cache add curl
+RUN apk --update --no-cache add curl=7.80.0
 
 # Security (Principle of Least Privilege): Switch the user to node before we run the app
 
