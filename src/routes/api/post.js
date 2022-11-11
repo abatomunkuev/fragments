@@ -45,6 +45,7 @@ module.exports = async (req, res) => {
     logger.debug('String value from buffer: ' + buffer.toString());
     // Set Location header
     logger.debug({ location: apiUrl + '/v1/fragments/' + fragment.id }, 'Location');
+    logger.debug('Fragment content type: ' + fragment.type);
     res.location(apiUrl + '/v1/fragments/' + fragment.id);
     return res.status(201).json(createSuccessResponse({ fragment: createdFragment }));
   } catch (error) {

@@ -27,9 +27,6 @@ describe('POST /v1/fragments', () => {
 
   test('Not supported Content-type: return 415 Unsupported Media Type', async () => {
     const unsupported_types = [
-      { type: 'text/markdown', value: '### Test' },
-      { type: 'text/html', value: '<p>Test</p>' },
-      { type: 'application/json', value: { b: 10 } },
       { type: 'image/png', value: 'image placeholder' },
       { type: 'image/jpeg', value: 'image placeholder' },
       { type: 'image/webp', value: 'image placeholder' },
@@ -52,6 +49,48 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain')
       .send('This is a fragment');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'text/markdown', user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send('### This is a fragment');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'text/html', user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send('<h1>This is a fragment</h1>');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'application/json', user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json')
+      .send('{"brands": ["toyota", "bmw", "ford"]}');
 
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
@@ -111,6 +150,48 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .set('Content-Type', 'text/plain; charset=utf-8')
       .send('This is a fragment');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'text/markdown; charset=utf-8' with charset specified, user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown; charset=utf-8')
+      .send('## This is a fragment');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'text/html; charset=utf-8' with charset specified, user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html; charset=utf-8')
+      .send('<h1>This is a fragment</h1>');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    // Check if fragment exists in the In-Memory Database
+    const fragment = await Fragment.byId(res.body.fragment.ownerId, res.body.fragment.id);
+    expect(res.body.fragment).toEqual(fragment);
+  });
+
+  test("Create a fragment of type 'application/json; charset=utf-8' with charset specified, user is authorized", async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .send('{"brands": ["toyota", "bmw", "ford"]}');
 
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');

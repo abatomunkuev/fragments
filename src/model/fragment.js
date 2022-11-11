@@ -16,10 +16,10 @@ const {
 
 const FRAGMENT_TYPES = [
   `text/plain`,
-  /*
   `text/markdown`,
   `text/html`,
   `application/json`,
+  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
@@ -155,7 +155,31 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return FRAGMENT_TYPES;
+    const validExt = {
+      'text/plain': ['.txt'],
+      'text/markdown': ['.md', '.html', '.txt'],
+      'text/html': ['.html', '.txt'],
+      'application/json': ['.json', '.txt'],
+    };
+    let supportedExtensions;
+    switch (this.mimeType) {
+      case 'text/plain':
+        supportedExtensions = validExt['text/plain'];
+        break;
+      case 'text/markdown':
+        supportedExtensions = validExt['text/markdown'];
+        break;
+      case 'text/html':
+        supportedExtensions = validExt['text/html'];
+        break;
+      case 'application/json':
+        supportedExtensions = validExt['application/json'];
+        break;
+      default:
+        supportedExtensions = [];
+        break;
+    }
+    return supportedExtensions;
   }
 
   /**

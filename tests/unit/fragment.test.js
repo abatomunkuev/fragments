@@ -5,11 +5,10 @@ const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms)
 
 const validTypes = [
   `text/plain`,
-  /*
-   Currently, only text/plain is supported. Others will be added later.
   `text/markdown`,
   `text/html`,
   `application/json`,
+  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
@@ -119,6 +118,10 @@ describe('Fragment class', () => {
     test('common text types are supported, with and without charset', () => {
       expect(Fragment.isSupportedType('text/plain')).toBe(true);
       expect(Fragment.isSupportedType('text/plain; charset=utf-8')).toBe(true);
+      expect(Fragment.isSupportedType('text/html')).toBe(true);
+      expect(Fragment.isSupportedType('text/html; charset=utf-8')).toBe(true);
+      expect(Fragment.isSupportedType('text/markdown')).toBe(true);
+      expect(Fragment.isSupportedType('text/markdown; charset=utf-8')).toBe(true);
     });
 
     test('other types are not supported', () => {
@@ -147,7 +150,6 @@ describe('Fragment class', () => {
     });
 
     test('isText return expected results', () => {
-      // Text fragment
       const fragment = new Fragment({
         ownerId: '1234',
         type: 'text/plain; charset=utf-8',
@@ -164,7 +166,31 @@ describe('Fragment class', () => {
         type: 'text/plain; charset=utf-8',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['text/plain']);
+      expect(fragment.formats).toEqual(['.txt']);
+    });
+    test('formats returns the expected result for markdown', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/markdown; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.md', '.html', '.txt']);
+    });
+    test('formats returns the expected result for html', () => {
+      const fragment = new Fragment({
+        ownerId: '<p>1234</p>',
+        type: 'text/html; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.html', '.txt']);
+    });
+    test('formats returns the expected result for json', () => {
+      const fragment = new Fragment({
+        ownerId: '{"code": 1234}',
+        type: 'application/json',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.json', '.txt']);
     });
   });
 
