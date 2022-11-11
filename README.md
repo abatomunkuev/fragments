@@ -130,3 +130,4 @@ docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 - 06 Nov 2022 - Added Automatic Build and Push to Dockehub job in CI workflow: the job builds the image and pushes it to the Docker registry (DockerHub). Added secrets in GitHub.
 - 06 Nov 2022 - Added a CD Workflow in GitHub Actions. Created Amazon Elastic Container Registry private repository.
 - 10 Nov 2022 - Modified POST /fragments route, added support for any text/\* format (text/html, text/markdown) and application/json. Modified and added unit-tests. Modified formats method that returns list of supported format to convert the Fragment.
+- 10 Nov 2022 - Added GET /fragments/:id/info route with unit-tests. GET /fragments/:id/info returns the Fragment's metadata for the given id
