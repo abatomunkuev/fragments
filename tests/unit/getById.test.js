@@ -43,4 +43,68 @@ describe('GET /v1/fragments/:id', () => {
     // Check the text value retrieved (fragment's data)
     expect(get_res.text).toEqual(data);
   });
+
+  test('Retrieve fragment of text/plain type. Ensure response Content-Type matches, user is authorized', async () => {
+    const data = 'This is a fragment';
+    // Create a fragment
+    const post_res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send(data);
+    const get_res = await request(app)
+      .get('/v1/fragments/' + post_res.body.fragment.id)
+      .auth('user1@email.com', 'password1');
+    expect(get_res.statusCode).toBe(200);
+    expect(get_res.headers['content-type']).toMatch(/plain/);
+    expect(get_res.text).toEqual(data);
+  });
+
+  test('Retrieve fragment of text/markdown type. Ensure response Content-Type matches, user is authorized', async () => {
+    const data = '## This is a fragment';
+    // Create a fragment
+    const post_res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send(data);
+    const get_res = await request(app)
+      .get('/v1/fragments/' + post_res.body.fragment.id)
+      .auth('user1@email.com', 'password1');
+    expect(get_res.statusCode).toBe(200);
+    expect(get_res.headers['content-type']).toMatch(/markdown/);
+    expect(get_res.text).toEqual(data);
+  });
+
+  test('Retrieve fragment of text/html type. Ensure response Content-Type matches, user is authorized', async () => {
+    const data = '<h1>This is a fragment</h1>';
+    // Create a fragment
+    const post_res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send(data);
+    const get_res = await request(app)
+      .get('/v1/fragments/' + post_res.body.fragment.id)
+      .auth('user1@email.com', 'password1');
+    expect(get_res.statusCode).toBe(200);
+    expect(get_res.headers['content-type']).toMatch(/html/);
+    expect(get_res.text).toEqual(data);
+  });
+
+  test('Retrieve fragment of application/json type. Ensure response Content-Type matches, user is authorized', async () => {
+    const data = '{"car": "bmw"}';
+    // Create a fragment
+    const post_res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json')
+      .send(data);
+    const get_res = await request(app)
+      .get('/v1/fragments/' + post_res.body.fragment.id)
+      .auth('user1@email.com', 'password1');
+    expect(get_res.statusCode).toBe(200);
+    expect(get_res.headers['content-type']).toMatch(/json/);
+    expect(get_res.text).toEqual(data);
+  });
 });
