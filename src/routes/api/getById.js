@@ -6,12 +6,40 @@ const logger = require('../../logger');
  */
 module.exports = async (req, res) => {
   logger.info('User initiated GET /v1/fragments/:id request');
+  const extension = req.params.id.split('.').length == 1 ? null : '.' + req.params.id.split('.')[1];
+  const id = req.params.id.split('.').length == 1 ? req.params.id : req.params.id.split('.')[0];
+  let data;
+  let type;
   try {
-    const fragment = await Fragment.byId(req.user, req.params.id);
+    const fragment = await Fragment.byId(req.user, id);
     logger.debug({ fragment }, `User's ${req.user} Fragment`);
-    const data = await fragment.getData();
+    // Here we are checking if the extension exists, and check if it is in supported formats
+    if (extension) {
+      if (fragment.formats.includes(extension)) {
+        // Convert fragments data
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        logger.debug({ convertedData }, `convertedData`);
+        logger.debug({ mimeType }, `mimeType`);
+        data = convertedData;
+        type = mimeType;
+      } else {
+        logger.warn(
+          'Error in GET /v1/fragments/:id.ext, invalid/unsupported conversion extension. Sending HTTP 415 with message'
+        );
+        logger.warn(`Provided type ${extension} is invalid / not supported`);
+        return res
+          .status(415)
+          .json(
+            createErrorResponse(415, `Provided conversion extension is invalid/not supported.`)
+          );
+      }
+    } else {
+      // Otherwise, set to rawData
+      data = await fragment.getData();
+      type = fragment.type;
+    }
     logger.debug({ data }, `Fragment's data, Fragment ID ${fragment.id}`);
-    res.type(fragment.type);
+    res.type(type);
     res.setHeader('content-length', fragment.size);
     return res.status(200).send(data);
   } catch (error) {

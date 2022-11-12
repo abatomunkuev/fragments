@@ -149,10 +149,28 @@ describe('Fragment class', () => {
       expect(fragment.mimeType).toEqual('text/plain');
     });
 
-    test('isText return expected results', () => {
+    test('isText text/plain return expected results', () => {
       const fragment = new Fragment({
         ownerId: '1234',
         type: 'text/plain; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.isText).toBe(true);
+    });
+
+    test('isText text/markdown return expected results', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/markdown; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.isText).toBe(true);
+    });
+
+    test('isText text/html return expected results', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/html',
         size: 0,
       });
       expect(fragment.isText).toBe(true);
@@ -184,6 +202,15 @@ describe('Fragment class', () => {
       });
       expect(fragment.formats).toEqual(['.html', '.txt']);
     });
+    test('formats returns the expected result for json', () => {
+      const fragment = new Fragment({
+        ownerId: '{"code": 1234}',
+        type: 'application/json',
+        size: 0,
+      });
+      expect(fragment.formats).toEqual(['.json', '.txt']);
+    });
+
     test('formats returns the expected result for json', () => {
       const fragment = new Fragment({
         ownerId: '{"code": 1234}',
@@ -273,9 +300,130 @@ describe('Fragment class', () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
       await fragment.save();
       await fragment.setData(Buffer.from('a'));
-
       await Fragment.delete('1234', fragment.id);
       expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
+    });
+  });
+
+  // TODO
+  describe('getConvertedData()', () => {
+    test('text/markdown conversion to html', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('# Heading 1'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.html');
+      expect(convertedData).toEqual('<h1>Heading 1</h1>\n');
+      expect(mimeType).toEqual('text/html');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/markdown conversion to txt', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('# Heading 1'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.txt');
+      expect(convertedData).toEqual('# Heading 1');
+      expect(mimeType).toEqual('text/plain');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/markdown conversion to itself (markdown)', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('# Heading 1'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.md');
+      expect(convertedData).toEqual(Buffer.from('# Heading 1'));
+      expect(mimeType).toEqual('text/markdown');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/markdown conversion to itself passing empty string', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('# Heading 1'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('');
+      expect(convertedData).toEqual(Buffer.from('# Heading 1'));
+      expect(mimeType).toEqual('text/markdown');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/html conversion to txt', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('<h1>Heading 1</h1>'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.txt');
+      expect(convertedData).toEqual('<h1>Heading 1</h1>');
+      expect(mimeType).toEqual('text/plain');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/html conversion to itself (html)', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('<h1>Heading 1</h1>'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.html');
+      expect(convertedData).toEqual(Buffer.from('<h1>Heading 1</h1>'));
+      expect(mimeType).toEqual('text/html');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/html conversion to itself passing empty string', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('<h1>Heading 1</h1>'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('');
+      expect(convertedData).toEqual(Buffer.from('<h1>Heading 1</h1>'));
+      expect(mimeType).toEqual('text/html');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/plain conversion to txt', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('Fragment data'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.txt');
+      expect(convertedData).toEqual('Fragment data');
+      expect(mimeType).toEqual('text/plain');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('text/plain conversion to itself passing empty string', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('Fragment data'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('');
+      expect(convertedData).toEqual(Buffer.from('Fragment data'));
+      expect(mimeType).toEqual('text/plain');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('application/json conversion to txt', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'application/json', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('{"car": "bmw"}'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('.txt');
+      expect(convertedData).toEqual('{"car": "bmw"}');
+      expect(mimeType).toEqual('text/plain');
+    });
+  });
+
+  describe('getConvertedData()', () => {
+    test('application/json conversion to itself passing empty string', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'application/json', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('{"car": "bmw"}'));
+      const { convertedData, mimeType } = await fragment.getConvertedData('');
+      expect(convertedData).toEqual(Buffer.from('{"car": "bmw"}'));
+      expect(mimeType).toEqual('application/json');
     });
   });
 });

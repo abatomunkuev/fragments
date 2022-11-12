@@ -3,7 +3,11 @@
 const { randomUUID } = require('crypto');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
-
+// To determine mime type based on extension
+const mime = require('mime-types');
+// To do conversions
+const MarkdownIt = require('markdown-it');
+const md = new MarkdownIt();
 // Functions for working with fragment metadata/data using our DB
 const {
   readFragment,
@@ -175,9 +179,6 @@ class Fragment {
       case 'application/json':
         supportedExtensions = validExt['application/json'];
         break;
-      default:
-        supportedExtensions = [];
-        break;
     }
     return supportedExtensions;
   }
@@ -190,6 +191,62 @@ class Fragment {
   static isSupportedType(value) {
     const { type } = contentType.parse(value);
     return FRAGMENT_TYPES.includes(type);
+  }
+
+  /**
+   * Gets converted fragment data
+   * @param {String} extension
+   * @returns {Object} object: converted data and its type
+   */
+  async getConvertedData(extension) {
+    let data;
+    let type;
+    switch (this.mimeType) {
+      case 'text/markdown':
+        if (extension == '.html') {
+          const rawData = await this.getData();
+          data = md.render(rawData.toString());
+          type = mime.lookup(extension);
+        } else if (extension == '.txt') {
+          data = (await this.getData()).toString();
+          type = mime.lookup(extension);
+        } else {
+          data = await this.getData();
+          type = this.type;
+        }
+        break;
+
+      case 'text/html':
+        if (extension == '.txt') {
+          data = (await this.getData()).toString();
+          type = mime.lookup(extension);
+        } else {
+          data = await this.getData();
+          type = this.type;
+        }
+        break;
+
+      case 'text/plain':
+        if (extension == '.txt') {
+          data = (await this.getData()).toString();
+          type = mime.lookup(extension);
+        } else {
+          data = await this.getData();
+          type = this.type;
+        }
+        break;
+
+      case 'application/json':
+        if (extension == '.txt') {
+          data = (await this.getData()).toString();
+          type = mime.lookup(extension);
+        } else {
+          data = await this.getData();
+          type = this.type;
+        }
+        break;
+    }
+    return { convertedData: data, mimeType: type };
   }
 }
 
