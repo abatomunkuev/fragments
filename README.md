@@ -41,12 +41,15 @@ Develop a new highly-scalable microservice which will help automate the processe
 npm install
 ```
 
-| Script                               | How to run      |
-| ------------------------------------ | --------------- |
-| Linter                               | `npm run lint`  |
-| Start the server                     | `npm start`     |
-| Start the server in development mode | `npm run dev`   |
-| Start the server in debug mode       | `npm run debug` |
+| Script                                                 | How to run                     |
+| ------------------------------------------------------ | ------------------------------ |
+| Linter                                                 | `npm run lint`                 |
+| Start the server                                       | `npm start`                    |
+| Start the server in development mode                   | `npm run dev`                  |
+| Start the server in debug mode                         | `npm run debug`                |
+| Run unit-tests                                         | `npm test`                     |
+| Run integration tests                                  | `npm run test:integration`     |
+| Run script to create mock S3 Bucket and DynamoDB table | `./scripts/local-aws-setup.sh` |
 
 - To debug the source code, use VSCode debugger. See (https://code.visualstudio.com/docs/editor/debugging https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
 - All configuration information in `.env`
@@ -107,6 +110,30 @@ docker logs -f <id>
 docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 ```
 
+- Build and run multiple services using docker-compose
+
+```
+docker-compose up
+```
+
+- Run service(s) in the background using -d
+
+```
+docker-compose up -d
+```
+
+- Stop services
+
+```
+docker-compose down
+```
+
+- Run specific services instead of running all
+
+```
+docker-compose up dynamodb-local localstack
+```
+
 ## Log
 
 - 05 Sep 2022 - Started the project, configured package.json, prettier, eslint
@@ -132,3 +159,5 @@ docker buildx build -t abatomunkuev1/fragments:latest --platform=linux/amd64 .
 - 10 Nov 2022 - Modified POST /fragments route, added support for any text/\* format (text/html, text/markdown) and application/json. Modified and added unit-tests. Modified formats method that returns list of supported format to convert the Fragment.
 - 10 Nov 2022 - Added GET /fragments/:id/info route with unit-tests. GET /fragments/:id/info returns the Fragment's metadata for the given id
 - 12 Nov 2022 - Added GET /fragments/:id.ext support with unit-tests. GET /fragments/:id.ext returns the Fragment's data converted to a supported type
+- 20 Nov 2022 - Added integration tests using a tool Hurl.
+- 20 Nov 2022 - Added docker-compose to create complex testing environments, and use it to mock AWS services in local development. Offline solutions used: [LocalStack](https://localstack.cloud/), [DynamoDB Local](https://hub.docker.com/r/amazon/dynamodb-local)
