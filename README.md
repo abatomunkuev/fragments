@@ -21,15 +21,17 @@ Develop a new highly-scalable microservice which will help automate the processe
 
 ## Tech stack WIP
 
-| Technologies, Services            | Description                                                                                                                                                                   |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Node JS                           | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                                  |
-| Amazon Web Services (AWS)         | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                                            |
-| Amazon Cognito                    | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices.                  |
-| Amazon Elastic Compute Cloud EC2  | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                                     |
-| Amazon Elastic Container Registry | [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) - fully managed Docker container registry                                                                    |
-| Docker                            | [Docker](https://www.docker.com) is an open platform for developing, shipping, and running applications. See [Docker Overview](https://docs.docker.com/get-started/overview/) |
-| Docker Hub                        | [Docker Hub](https://hub.docker.com) - Docker Container Registry                                                                                                              |
+| Technologies, Services            | Description                                                                                                                                                                                |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Node JS                           | [Open-source, back-end JavaScript environment](https://nodejs.org/en/about/)                                                                                                               |
+| Amazon Web Services (AWS)         | [Amazon Cloud Platform](https://aws.amazon.com) that provides on-demand delivery of IT resources over the Internet                                                                         |
+| Amazon Cognito                    | [ Web Services product](https://aws.amazon.com/cognito/) that controls user authentication and access for mobile applications on internet-connected devices.                               |
+| Amazon Elastic Compute Cloud EC2  | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                                                  |
+| Amazon Elastic Container Registry | [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) - fully managed Docker container registry                                                                                 |
+| Amazon Elastic Container Service  | [Amazon Elastic Container Service](https://aws.amazon.com/ecs/) - fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications |
+| Fargate                           | [Fargate](https://aws.amazon.com/fargate/) - serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers.                               |
+| Docker                            | [Docker](https://www.docker.com) is an open platform for developing, shipping, and running applications. See [Docker Overview](https://docs.docker.com/get-started/overview/)              |
+| Docker Hub                        | [Docker Hub](https://hub.docker.com) - Docker Container Registry                                                                                                                           |
 
 ## Development
 
