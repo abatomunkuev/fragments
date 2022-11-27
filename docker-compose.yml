@@ -1,6 +1,8 @@
 services:
   # Fragments microservice API server
   fragments:
+    # Specify container name
+    container_name: fragments
     # Use a proper init process (tini)
     init: true
     # Build the Docker Image using the Dockerfile
@@ -26,6 +28,9 @@ services:
       # something else is defined in the env.
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-fragments}
       - AWS_DYNAMODB_TABLE_NAME=${AWS_DYNAMODB_TABLE_NAME:-fragments}
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_SESSION_TOKEN=test
     # Ports to publish
     ports:
       - '8080:8080'

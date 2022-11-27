@@ -29,7 +29,8 @@ Develop a new highly-scalable microservice which will help automate the processe
 | Amazon Elastic Compute Cloud EC2  | [Amazon EC2](https://aws.amazon.com/ec2/)                                                                                                                                                  |
 | Amazon Elastic Container Registry | [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) - fully managed Docker container registry                                                                                 |
 | Amazon Elastic Container Service  | [Amazon Elastic Container Service](https://aws.amazon.com/ecs/) - fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications |
-| Fargate                           | [Fargate](https://aws.amazon.com/fargate/) - serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers.                               |
+| Amazon Fargate                    | [Fargate](https://aws.amazon.com/fargate/) - serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers.                               |
+| Amazon S3                         | [Amazon S3](https://aws.amazon.com/s3/) - is an object storage service offering industry-leading scalability, data availability, security, and performance.                                |
 | Docker                            | [Docker](https://www.docker.com) is an open platform for developing, shipping, and running applications. See [Docker Overview](https://docs.docker.com/get-started/overview/)              |
 | Docker Hub                        | [Docker Hub](https://hub.docker.com) - Docker Container Registry                                                                                                                           |
 
@@ -136,6 +137,12 @@ docker-compose down
 docker-compose up dynamodb-local localstack
 ```
 
+- Restart specific container without touching other containers
+
+```
+docker-compose up --build --no-deps -d fragments
+```
+
 ## Log
 
 - 05 Sep 2022 - Started the project, configured package.json, prettier, eslint
@@ -157,9 +164,12 @@ docker-compose up dynamodb-local localstack
 - 23 Oct 2022 - Optimized Dockerfile. Modified GET /fragments route - now it accepts query parameter `expand` to get expanded fragments metadata. Added unit-tests.
 - 06 Nov 2022 - Added Linting Dockerfiles job in CI workflow: hadolint tool that parses a Dockerfile and checks it against set of [rules](https://github.com/hadolint/hadolint#rules)
 - 06 Nov 2022 - Added Automatic Build and Push to Dockehub job in CI workflow: the job builds the image and pushes it to the Docker registry (DockerHub). Added secrets in GitHub.
-- 06 Nov 2022 - Added a CD Workflow in GitHub Actions. Created Amazon Elastic Container Registry private repository.
+- 06 Nov 2022 - Added a CD Workflow in GitHub Actions. Push the new image to private container repository. Created Amazon Elastic Container Registry private repository.
 - 10 Nov 2022 - Modified POST /fragments route, added support for any text/\* format (text/html, text/markdown) and application/json. Modified and added unit-tests. Modified formats method that returns list of supported format to convert the Fragment.
 - 10 Nov 2022 - Added GET /fragments/:id/info route with unit-tests. GET /fragments/:id/info returns the Fragment's metadata for the given id
 - 12 Nov 2022 - Added GET /fragments/:id.ext support with unit-tests. GET /fragments/:id.ext returns the Fragment's data converted to a supported type
 - 20 Nov 2022 - Added integration tests using a tool Hurl.
 - 20 Nov 2022 - Added docker-compose to create complex testing environments, and use it to mock AWS services in local development. Offline solutions used: [LocalStack](https://localstack.cloud/), [DynamoDB Local](https://hub.docker.com/r/amazon/dynamodb-local)
+- 27 Nov 2022 - Added [Amazon ECS](https://aws.amazon.com/ecs/) - fully managed container orchestration service. Added CD Workflow in GitHub Actions. Auto-deployment to Amazon ECS (deploy image, run and manage containers, monitor containers, scale containers, manage compute resources)
+- 27 Nov 2022 - Added [AWS S3](https://aws.amazon.com/s3/). Created S3 Bucket. Connected project using Amazon S3 SDK. Microservice supports adding, reading, and deleting raw data to S3 storage.
+- 27 Nov 2022 - Added DELETE route to delete fragment: metadata and raw data from S3. Added integration tests to test S3 connection with our Microservice: writing, reading, and deleting fragments data.
