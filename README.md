@@ -143,6 +143,12 @@ docker-compose up dynamodb-local localstack
 docker-compose up --build --no-deps -d fragments
 ```
 
+- Start docker-compose for local development (MinIO)
+
+```
+docker-compose -f docker-compose.local.yml up -d
+```
+
 ## Log
 
 - 05 Sep 2022 - Started the project, configured package.json, prettier, eslint
@@ -173,3 +179,4 @@ docker-compose up --build --no-deps -d fragments
 - 27 Nov 2022 - Added [Amazon ECS](https://aws.amazon.com/ecs/) - fully managed container orchestration service. Added CD Workflow in GitHub Actions. Auto-deployment to Amazon ECS (deploy image, run and manage containers, monitor containers, scale containers, manage compute resources)
 - 27 Nov 2022 - Added [AWS S3](https://aws.amazon.com/s3/). Created S3 Bucket. Connected project using Amazon S3 SDK. Microservice supports adding, reading, and deleting raw data to S3 storage.
 - 27 Nov 2022 - Added DELETE route to delete fragment: metadata and raw data from S3. Added integration tests to test S3 connection with our Microservice: writing, reading, and deleting fragments data.
+- 27 Nov 2022 - Added [MinIO](https://min.io/) - an S3-compatible object store that can be run as a Docker container locally. It's a useful tool for development, or creating private-cloud applications that need S3 object storage.

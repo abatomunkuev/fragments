@@ -32,3 +32,6 @@ coverage/
 
 # Output of 'npm pack'
 *.tgz
+
+# Minio
+minio/
