@@ -183,3 +183,4 @@ docker-compose -f docker-compose.local.yml up -d
 - 27 Nov 2022 - Added [MinIO](https://min.io/) - an S3-compatible object store that can be run as a Docker container locally. It's a useful tool for development, or creating private-cloud applications that need S3 object storage.
 - 04 Dec 2022 - Added [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. Added integration tests to test DynamoDB connection with our Microservice: writing, reading, and deleting fragments metadata using Hurl.
 - 04 Dec 2022 - Created table in [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
+- 04 Dec 2022 - Added Integration Tests job in CI Workflow.
