@@ -45,15 +45,16 @@ Develop a new highly-scalable microservice which will help automate the processe
 npm install
 ```
 
-| Script                                                 | How to run                     |
-| ------------------------------------------------------ | ------------------------------ |
-| Linter                                                 | `npm run lint`                 |
-| Start the server                                       | `npm start`                    |
-| Start the server in development mode                   | `npm run dev`                  |
-| Start the server in debug mode                         | `npm run debug`                |
-| Run unit-tests                                         | `npm test`                     |
-| Run integration tests                                  | `npm run test:integration`     |
-| Run script to create mock S3 Bucket and DynamoDB table | `./scripts/local-aws-setup.sh` |
+| Script                                                 | How to run                           |
+| ------------------------------------------------------ | ------------------------------------ |
+| Linter                                                 | `npm run lint`                       |
+| Start the server                                       | `npm start`                          |
+| Start the server in development mode                   | `npm run dev`                        |
+| Start the server in debug mode                         | `npm run debug`                      |
+| Run unit-tests                                         | `npm test`                           |
+| Run integration tests                                  | `npm run test:integration`           |
+| Run script to create mock S3 Bucket and DynamoDB table | `./scripts/local-aws-setup.sh`       |
+| Run script to create mock DynamoDB table (MinIO)       | `./scripts/local-aws-minio-setup.sh` |
 
 - To debug the source code, use VSCode debugger. See (https://code.visualstudio.com/docs/editor/debugging https://code.visualstudio.com/docs/nodejs/nodejs-debugging)
 - All configuration information in `.env`
@@ -184,3 +185,4 @@ docker-compose -f docker-compose.local.yml up -d
 - 04 Dec 2022 - Added [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. Added integration tests to test DynamoDB connection with our Microservice: writing, reading, and deleting fragments metadata using Hurl.
 - 04 Dec 2022 - Created table in [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
 - 04 Dec 2022 - Added Integration Tests job in CI Workflow.
+- 05 Dec 2022 - Updated docker-compose.local.yml for local development: Local S3 [MinIO](https://min.io/) and [DynamoDB Local](https://hub.docker.com/r/amazon/dynamodb-local). Added script that initializes fragments table in DynamoDB Local.

@@ -1,6 +1,9 @@
 # docker-compose.local.yml for Local development
 services:
   fragments:
+    depends_on:
+      - minio
+      - dynamodb-local
     # Specify container name
     container_name: fragments
     init: true
@@ -12,18 +15,23 @@ services:
       - HTPASSWD_FILE=tests/.htpasswd
       # Use the LOG_LEVEL set in the host environment, or default to debug
       - LOG_LEVEL=${LOG_LEVEL:-debug}
-      # AWS credentials to use, default to "test"
-      - AWS_ACCESS_KEY_ID=minio-access-key
-      - AWS_SECRET_ACCESS_KEY=minio-secret-key
+      # AWS credentials to use, default to "test_local"
+      - AWS_ACCESS_KEY_ID=test_local
+      - AWS_SECRET_ACCESS_KEY=test_local_pass
       - AWS_REGION=us-east-1
       # Use minio as our S3 endpoint
       - AWS_S3_ENDPOINT_URL=http://minio:9000
-      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-fragments}
+      - AWS_S3_BUCKET_NAME=fragments
+      # Use dynamodb-local for DynamoDB endpoint
+      # Use the DynamoDB local endpoint vs. AWS for DynamoDB AWS SDK clients.
+      - AWS_DYNAMODB_ENDPOINT_URL=http://dynamodb-local:8000
+      - AWS_DYNAMODB_TABLE_NAME=fragments
     ports:
       - '8080:8080'
 
   minio:
     image: minio/minio
+    # Run the server with Web Console on 9001, and use /data for data
     command: server --console-address ":9001" /data
     ports:
       # The minio API endpoint
@@ -33,10 +41,20 @@ services:
     environment:
       # See https://docs.min.io/minio/baremetal/reference/minio-server/minio-server.html#environment-variables
       # Root user (Access Key, typically a long, random string)
-      - MINIO_ROOT_USER=minio-access-key
+      - MINIO_ROOT_USER=test_local
       # Root user's password (Secret Key, typically a long, random string)
-      - MINIO_ROOT_PASSWORD=minio-secret-key
+      - MINIO_ROOT_PASSWORD=test_local_pass
     volumes:
       # Use what's in `./minio/data` as the storage volume
       # NOTE: add this to your .gitignore
       - ./minio/data:/data
+
+  # DynamoDB Local, see: https://hub.docker.com/r/amazon/dynamodb-local
+  dynamodb-local:
+    image: amazon/dynamodb-local
+    ports:
+      # Default port is 8000
+      - '8000:8000'
+    # Run the database in memory, see:
+    # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.UsageNotes.html
+    command: ['-jar', 'DynamoDBLocal.jar', '-inMemory']
