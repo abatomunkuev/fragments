@@ -116,7 +116,7 @@ class Fragment {
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  getData() {
+  async getData() {
     return readFragmentData(this.ownerId, this.id);
   }
 
@@ -131,7 +131,8 @@ class Fragment {
     }
     this.size = Buffer.byteLength(data);
     this.updated = new Date().toISOString();
-    return writeFragmentData(this.ownerId, this.id, data);
+    await this.save();
+    return await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
