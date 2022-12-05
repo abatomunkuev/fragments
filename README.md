@@ -31,6 +31,7 @@ Develop a new highly-scalable microservice which will help automate the processe
 | Amazon Elastic Container Service  | [Amazon Elastic Container Service](https://aws.amazon.com/ecs/) - fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications |
 | Amazon Fargate                    | [Fargate](https://aws.amazon.com/fargate/) - serverless, pay-as-you-go compute engine that lets you focus on building applications without managing servers.                               |
 | Amazon S3                         | [Amazon S3](https://aws.amazon.com/s3/) - is an object storage service offering industry-leading scalability, data availability, security, and performance.                                |
+| Amazon DynamoDB                   | [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale.                 |
 | Docker                            | [Docker](https://www.docker.com) is an open platform for developing, shipping, and running applications. See [Docker Overview](https://docs.docker.com/get-started/overview/)              |
 | Docker Hub                        | [Docker Hub](https://hub.docker.com) - Docker Container Registry                                                                                                                           |
 
@@ -178,5 +179,7 @@ docker-compose -f docker-compose.local.yml up -d
 - 20 Nov 2022 - Added docker-compose to create complex testing environments, and use it to mock AWS services in local development. Offline solutions used: [LocalStack](https://localstack.cloud/), [DynamoDB Local](https://hub.docker.com/r/amazon/dynamodb-local)
 - 27 Nov 2022 - Added [Amazon ECS](https://aws.amazon.com/ecs/) - fully managed container orchestration service. Added CD Workflow in GitHub Actions. Auto-deployment to Amazon ECS (deploy image, run and manage containers, monitor containers, scale containers, manage compute resources)
 - 27 Nov 2022 - Added [AWS S3](https://aws.amazon.com/s3/). Created S3 Bucket. Connected project using Amazon S3 SDK. Microservice supports adding, reading, and deleting raw data to S3 storage.
-- 27 Nov 2022 - Added DELETE route to delete fragment: metadata and raw data from S3. Added integration tests to test S3 connection with our Microservice: writing, reading, and deleting fragments data.
+- 27 Nov 2022 - Added DELETE route to delete fragment: metadata and raw data from S3. Added integration tests to test S3 connection with our Microservice: writing, reading, and deleting fragments data using Hurl.
 - 27 Nov 2022 - Added [MinIO](https://min.io/) - an S3-compatible object store that can be run as a Docker container locally. It's a useful tool for development, or creating private-cloud applications that need S3 object storage.
+- 04 Dec 2022 - Added [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. Added integration tests to test DynamoDB connection with our Microservice: writing, reading, and deleting fragments metadata using Hurl.
+- 04 Dec 2022 - Created table in [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
