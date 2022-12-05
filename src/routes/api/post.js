@@ -35,10 +35,10 @@ module.exports = async (req, res) => {
   try {
     logger.info('POST route: creating Fragment');
     const fragment = new Fragment({ ownerId: req.user, type: type });
-    // Saving the Fragment metadata
-    await fragment.save();
     // Saving the Fragment's raw data
     await fragment.setData(buffer);
+    // Saving the Fragment metadata
+    await fragment.save();
     // Retrieving added fragment
     const createdFragment = await Fragment.byId(req.user, fragment.id);
     logger.debug({ createdFragment }, 'Created fragment');
