@@ -117,7 +117,8 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   async getData() {
-    return readFragmentData(this.ownerId, this.id);
+    const data = await readFragmentData(this.ownerId, this.id);
+    return Promise.resolve(data);
   }
 
   /**
@@ -130,7 +131,6 @@ class Fragment {
       throw new Error("Fragment's data type is not Buffer type");
     }
     this.size = Buffer.byteLength(data);
-    this.updated = new Date().toISOString();
     await this.save();
     return await writeFragmentData(this.ownerId, this.id, data);
   }
