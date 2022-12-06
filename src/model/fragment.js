@@ -89,7 +89,7 @@ class Fragment {
     if (!result) {
       throw new Error(`Fragment with id: ${id} for user: ${ownerId} not found.`);
     }
-    return result;
+    return new Fragment(result);
   }
 
   /**
@@ -117,8 +117,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   async getData() {
-    const data = await readFragmentData(this.ownerId, this.id);
-    return Promise.resolve(data);
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
