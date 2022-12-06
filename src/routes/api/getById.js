@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   let type;
   try {
     const fragment = await Fragment.byId(req.user, id);
-    logger.debug({ fragment }, `User's ${req.user} Fragment`);
+    logger.info({ fragment }, `User's ${req.user} Fragment`);
     // Here we are checking if the extension exists, and check if it is in supported formats
     if (extension) {
       if (fragment.formats.includes(extension)) {
