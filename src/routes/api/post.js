@@ -11,12 +11,16 @@ const logger = require('../../logger');
 const apiUrl = process.env.API_URL || 'http://localhost:8080';
 
 /**
+ * POST /fragments
+ *
  * Creates a new fragment for the current user (i.e., authenticated user).
  */
 module.exports = async (req, res) => {
   logger.info('User initiated POST /v1/fragments/ request');
   // Get the content type of the request
   const { type } = contentType.parse(req);
+  // Get the raw binary data; express.raw() middleware stores Buffer in req.body
+  const buffer = req.body;
   // Check if the provided type is in the supported type list
   if (!Fragment.isSupportedType(type)) {
     logger.warn('Error in POST /v1/fragments/, unsupported type. Sending HTTP 415 with message');
@@ -30,8 +34,6 @@ module.exports = async (req, res) => {
         )
       );
   }
-  // Get the raw binary data; express.raw() middleware stores Buffer in req.body
-  const buffer = req.body;
   try {
     logger.info('POST route: creating Fragment');
     const fragment = new Fragment({ ownerId: req.user, type: type });

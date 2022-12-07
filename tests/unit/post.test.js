@@ -27,9 +27,8 @@ describe('POST /v1/fragments', () => {
 
   test('Not supported Content-type: return 415 Unsupported Media Type', async () => {
     const unsupported_types = [
-      { type: 'image/png', value: 'image placeholder' },
-      { type: 'image/jpeg', value: 'image placeholder' },
-      { type: 'image/webp', value: 'image placeholder' },
+      { type: 'video/mp4', value: 'video placeholder' },
+      { type: 'audio/mp3', value: 'audio placeholder' },
     ];
 
     unsupported_types.forEach(async ({ type, value }) => {

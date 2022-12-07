@@ -8,12 +8,10 @@ const validTypes = [
   `text/markdown`,
   `text/html`,
   `application/json`,
-  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  */
 ];
 
 describe('Fragment class', () => {
@@ -122,6 +120,13 @@ describe('Fragment class', () => {
       expect(Fragment.isSupportedType('text/html; charset=utf-8')).toBe(true);
       expect(Fragment.isSupportedType('text/markdown')).toBe(true);
       expect(Fragment.isSupportedType('text/markdown; charset=utf-8')).toBe(true);
+    });
+
+    test('image types are supported', () => {
+      expect(Fragment.isSupportedType('image/png')).toBe(true);
+      expect(Fragment.isSupportedType('image/jpeg')).toBe(true);
+      expect(Fragment.isSupportedType('image/webp')).toBe(true);
+      expect(Fragment.isSupportedType('image/gif')).toBe(true);
     });
 
     test('other types are not supported', () => {

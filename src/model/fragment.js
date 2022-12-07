@@ -7,6 +7,7 @@ const contentType = require('content-type');
 const mime = require('mime-types');
 // To do conversions
 const MarkdownIt = require('markdown-it');
+
 const md = new MarkdownIt();
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -23,12 +24,10 @@ const FRAGMENT_TYPES = [
   `text/markdown`,
   `text/html`,
   `application/json`,
-  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  */
 ];
 
 const validateArgs = (ownerId, content_type, size) => {
@@ -106,10 +105,10 @@ class Fragment {
    * Saves the current fragment to the database
    * @returns Promise
    */
-  save() {
+  async save() {
     // Updates the time
     this.updated = new Date().toISOString();
-    return writeFragment(this);
+    return await writeFragment(this);
   }
 
   /**
@@ -117,7 +116,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   async getData() {
-    return readFragmentData(this.ownerId, this.id);
+    return await readFragmentData(this.ownerId, this.id);
   }
 
   /**

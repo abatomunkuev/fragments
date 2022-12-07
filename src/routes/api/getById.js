@@ -38,8 +38,7 @@ module.exports = async (req, res) => {
       data = await fragment.getData();
       type = fragment.type;
     }
-    logger.debug({ data }, `Fragment's data, Fragment ID ${fragment.id}`);
-    res.type(type);
+    res.set('Content-Type', type);
     res.setHeader('content-length', fragment.size);
     return res.status(200).send(data);
   } catch (error) {
