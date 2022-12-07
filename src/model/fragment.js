@@ -5,7 +5,9 @@ const { randomUUID } = require('crypto');
 const contentType = require('content-type');
 // To determine mime type based on extension
 const mime = require('mime-types');
-// To do conversions
+// To do image conversions
+const sharp = require('sharp');
+// To do text conversions
 const MarkdownIt = require('markdown-it');
 
 const md = new MarkdownIt();
@@ -163,6 +165,10 @@ class Fragment {
       'text/markdown': ['.md', '.html', '.txt'],
       'text/html': ['.html', '.txt'],
       'application/json': ['.json', '.txt'],
+      'image/png': ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
+      'image/jpeg': ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
+      'image/webp': ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
+      'image/gif': ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
     };
     let supportedExtensions;
     switch (this.mimeType) {
@@ -177,6 +183,18 @@ class Fragment {
         break;
       case 'application/json':
         supportedExtensions = validExt['application/json'];
+        break;
+      case 'image/png':
+        supportedExtensions = validExt['image/png'];
+        break;
+      case 'image/jpeg':
+        supportedExtensions = validExt['image/jpeg'];
+        break;
+      case 'image/webp':
+        supportedExtensions = validExt['image/webp'];
+        break;
+      case 'image/gif':
+        supportedExtensions = validExt['image/gif'];
         break;
     }
     return supportedExtensions;
@@ -242,6 +260,83 @@ class Fragment {
         } else {
           data = await this.getData();
           type = this.type;
+        }
+        break;
+
+      case 'image/png':
+        if (extension == '.png') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).png().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.jpeg' || extension == '.jpg') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).jpeg().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.webp') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).webp().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.gif') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).gif().toBuffer();
+          type = mime.lookup(extension);
+        }
+        break;
+      case 'image/jpeg':
+        if (extension == '.png') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).png().toBuffer();
+          type = mime.lookup(extension);
+        } else if ((extension == '.jpeg') | (extension == '.jpg')) {
+          const rawData = await this.getData();
+          data = await sharp(rawData).jpeg().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.webp') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).webp().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.gif') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).gif().toBuffer();
+          type = mime.lookup(extension);
+        }
+        break;
+      case 'image/webp':
+        if (extension == '.png') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).png().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.jpeg' || extension == 'jpg') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).jpeg().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.webp') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).webp().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.gif') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).gif().toBuffer();
+          type = mime.lookup(extension);
+        }
+        break;
+      case 'image/gif':
+        if (extension == '.png') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).png().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.jpeg' || extension == '.jpg') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).jpeg().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.webp') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).webp().toBuffer();
+          type = mime.lookup(extension);
+        } else if (extension == '.gif') {
+          const rawData = await this.getData();
+          data = await sharp(rawData).gif().toBuffer();
+          type = mime.lookup(extension);
         }
         break;
     }

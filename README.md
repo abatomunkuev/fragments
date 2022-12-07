@@ -186,3 +186,6 @@ docker-compose -f docker-compose.local.yml up -d
 - 04 Dec 2022 - Created table in [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
 - 04 Dec 2022 - Added Integration Tests job in CI Workflow.
 - 05 Dec 2022 - Updated docker-compose.local.yml for local development: Local S3 [MinIO](https://min.io/) and [DynamoDB Local](https://hub.docker.com/r/amazon/dynamodb-local). Added script that initializes fragments table in DynamoDB Local.
+- 07 Dec 2022 - Added POST image support. User can create any supported image/_, text/_, application/json fragments.
+- 07 Dec 2022 - Added image conversion of all fragment types (text/\*, application/json, image/\*) using [sharp library](https://sharp.pixelplumbing.com)
+- 07 Dec 2022 - Modified Dockerfile. Sharp is manually installed due to issues with alpine image versions.

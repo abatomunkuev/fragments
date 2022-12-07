@@ -47,8 +47,11 @@ WORKDIR /app
 COPY --chown=node:node package*.json /app/
 
 # Install only production dependencies (installs exact versions) defined in package-lock.json - https://docs.docker.com/engine/reference/builder/#run
+# Remove existing sharp install from package-lock.json
 
-RUN npm ci --only=production
+RUN npm uninstall sharp \
+  && npm ci --only=production \
+  && npm install --platform=linuxmusl sharp@0.30.7
 
 #########################################################################################################
 # Stage 1: Building the microservice server and running it in production
