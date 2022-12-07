@@ -1,7 +1,7 @@
 {
   "name": "fragments",
   "private": true,
-  "version": "0.10.5",
+  "version": "0.11.0",
   "description": "Fragments Back-end API",
   "scripts": {
     "test": "jest -c jest.config.js --runInBand --",
