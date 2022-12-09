@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     logger.debug({ fragment }, `User's ${req.user} Fragment`);
     // Here we are checking if the extension exists, and check if it is in supported formats
     if (extension) {
-      if (fragment.formats.includes(extension)) {
+      if (fragment.validExtensions.includes(extension)) {
         // Convert fragments data
         const { convertedData, mimeType } = await fragment.getConvertedData(extension);
         logger.debug({ convertedData }, `convertedData`);

@@ -182,6 +182,41 @@ describe('Fragment class', () => {
     });
   });
 
+  describe('validExtensions', () => {
+    test('validExtensions returns the expected result for plain text', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.txt']);
+    });
+    test('validExtensions returns the expected result for markdown', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/markdown; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.md', '.html', '.txt']);
+    });
+    test('validExtensions returns the expected result for html', () => {
+      const fragment = new Fragment({
+        ownerId: '<p>1234</p>',
+        type: 'text/html; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.html', '.txt']);
+    });
+    test('validExtensions returns the expected result for json', () => {
+      const fragment = new Fragment({
+        ownerId: '{"code": 1234}',
+        type: 'application/json',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.json', '.txt']);
+    });
+  });
+
   describe('formats', () => {
     test('formats returns the expected result for plain text', () => {
       const fragment = new Fragment({
@@ -189,7 +224,7 @@ describe('Fragment class', () => {
         type: 'text/plain; charset=utf-8',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.txt']);
+      expect(fragment.formats).toEqual(['text/plain']);
     });
     test('formats returns the expected result for markdown', () => {
       const fragment = new Fragment({
@@ -197,7 +232,7 @@ describe('Fragment class', () => {
         type: 'text/markdown; charset=utf-8',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.md', '.html', '.txt']);
+      expect(fragment.formats).toEqual(['text/markdown', 'text/html', 'text/plain']);
     });
     test('formats returns the expected result for html', () => {
       const fragment = new Fragment({
@@ -205,7 +240,7 @@ describe('Fragment class', () => {
         type: 'text/html; charset=utf-8',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.html', '.txt']);
+      expect(fragment.formats).toEqual(['text/html', 'text/plain']);
     });
     test('formats returns the expected result for json', () => {
       const fragment = new Fragment({
@@ -213,16 +248,7 @@ describe('Fragment class', () => {
         type: 'application/json',
         size: 0,
       });
-      expect(fragment.formats).toEqual(['.json', '.txt']);
-    });
-
-    test('formats returns the expected result for json', () => {
-      const fragment = new Fragment({
-        ownerId: '{"code": 1234}',
-        type: 'application/json',
-        size: 0,
-      });
-      expect(fragment.formats).toEqual(['.json', '.txt']);
+      expect(fragment.formats).toEqual(['application/json', 'text/plain']);
     });
   });
 
@@ -260,6 +286,7 @@ describe('Fragment class', () => {
       const modified1 = fragment.updated;
       await wait();
       await fragment.setData(data);
+      await fragment.save();
       await wait();
       const fragment2 = await Fragment.byId(ownerId, fragment.id);
       expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));

@@ -131,7 +131,6 @@ class Fragment {
       throw new Error("Fragment's data type is not Buffer type");
     }
     this.size = Buffer.byteLength(data);
-    await this.save();
     return await writeFragmentData(this.ownerId, this.id, data);
   }
 
@@ -160,6 +159,52 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
+    const mimeTypes = {
+      'text/plain': ['text/plain'],
+      'text/markdown': ['text/markdown', 'text/html', 'text/plain'],
+      'text/html': ['text/html', 'text/plain'],
+      'application/json': ['application/json', 'text/plain'],
+      'image/png': ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+      'image/jpeg': ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+      'image/webp': ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+      'image/gif': ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
+    };
+
+    let supportedFormats;
+    switch (this.mimeType) {
+      case 'text/plain':
+        supportedFormats = mimeTypes['text/plain'];
+        break;
+      case 'text/markdown':
+        supportedFormats = mimeTypes['text/markdown'];
+        break;
+      case 'text/html':
+        supportedFormats = mimeTypes['text/html'];
+        break;
+      case 'application/json':
+        supportedFormats = mimeTypes['application/json'];
+        break;
+      case 'image/png':
+        supportedFormats = mimeTypes['image/png'];
+        break;
+      case 'image/jpeg':
+        supportedFormats = mimeTypes['image/jpeg'];
+        break;
+      case 'image/webp':
+        supportedFormats = mimeTypes['image/webp'];
+        break;
+      case 'image/gif':
+        supportedFormats = mimeTypes['image/gif'];
+        break;
+    }
+    return supportedFormats;
+  }
+
+  /**
+   * Returns the valid extensions into which this fragment type can be converted
+   * @returns {Array<string>} list of supported extensions
+   */
+  get validExtensions() {
     const validExt = {
       'text/plain': ['.txt'],
       'text/markdown': ['.md', '.html', '.txt'],
