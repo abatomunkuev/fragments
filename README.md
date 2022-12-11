@@ -19,7 +19,7 @@ Develop a new highly-scalable microservice which will help automate the processe
 - Collect reports from mobile devices in different formats (plain-text, json, markdown, HTML)
 - Collect image files from device cameras.
 
-## Tech stack WIP
+## Tech Stack
 
 | Technologies, Services            | Description                                                                                                                                                                                |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

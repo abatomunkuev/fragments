@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         );
     }
 
-    logger.info('PUT route: creating Fragment');
+    logger.info('PUT route: updating Fragment');
     // Saving the new Fragment's raw data
     await fragment.setData(buffer);
     // Saving the updated Fragment metadata
