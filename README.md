@@ -190,4 +190,4 @@ docker-compose -f docker-compose.local.yml up -d
 - 07 Dec 2022 - Added image conversion of all fragment types (text/\*, application/json, image/\*) using [sharp library](https://sharp.pixelplumbing.com)
 - 07 Dec 2022 - Modified Dockerfile. Sharp is manually installed due to issues with alpine image versions.
 - 09 Dec 2022 - Added PUT /fragments/:id route. PUT /fragments/:id updates (i.e., replaces) the data for their existing fragment with the specified id.
-- 11 Dec 2022 - Added and update Unit Tests: DELETE and PUT route.
+- 11 Dec 2022 - Added and update Unit Tests: DELETE and PUT route. Added Integration Tests: PUT, GET by id, GET converted data

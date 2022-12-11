@@ -12,9 +12,6 @@ HTTP/1.1 200
 [Asserts]
 jsonpath "$.fragments" count == 0
 
-
-
-
 # 2. Authenticated POST to /v1/fragments: Fragment that includes a charset text/plain; charset=utf-8
 POST http://localhost:8080/v1/fragments
 
@@ -30,8 +27,6 @@ user1@email.com:password1
 
 # 1. We expect to get back an HTTP 201
 HTTP/1.1 201
-
-
 
 
 # 3. Authenticated GET request /v1/fragments
