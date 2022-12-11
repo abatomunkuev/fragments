@@ -327,6 +327,7 @@ class Fragment {
           type = mime.lookup(extension);
         }
         break;
+
       case 'image/jpeg':
         if (extension == '.png') {
           const rawData = await this.getData();
@@ -346,6 +347,7 @@ class Fragment {
           type = mime.lookup(extension);
         }
         break;
+
       case 'image/webp':
         if (extension == '.png') {
           const rawData = await this.getData();
@@ -365,6 +367,7 @@ class Fragment {
           type = mime.lookup(extension);
         }
         break;
+
       case 'image/gif':
         if (extension == '.png') {
           const rawData = await this.getData();

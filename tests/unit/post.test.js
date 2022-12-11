@@ -42,6 +42,11 @@ describe('POST /v1/fragments', () => {
     });
   });
 
+  test('Creating a fragment without providing data: return 500', async () => {
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1');
+    expect(res.status).toBe(500);
+  });
+
   test("Create a fragment of type 'text/plain', user is authorized", async () => {
     const res = await request(app)
       .post('/v1/fragments')

@@ -1,5 +1,6 @@
 const { Fragment } = require('../../src/model/fragment');
-
+const fs = require('fs');
+const path = require('node:path');
 // Wait for a certain number of ms. Returns a Promise.
 const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -201,7 +202,7 @@ describe('Fragment class', () => {
     });
     test('validExtensions returns the expected result for html', () => {
       const fragment = new Fragment({
-        ownerId: '<p>1234</p>',
+        ownerId: '1234',
         type: 'text/html; charset=utf-8',
         size: 0,
       });
@@ -209,11 +210,43 @@ describe('Fragment class', () => {
     });
     test('validExtensions returns the expected result for json', () => {
       const fragment = new Fragment({
-        ownerId: '{"code": 1234}',
+        ownerId: '1234',
         type: 'application/json',
         size: 0,
       });
       expect(fragment.validExtensions).toEqual(['.json', '.txt']);
+    });
+    test('validExtensions returns the expected result for image/png', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/png',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
+    });
+    test('validExtensions returns the expected result for image/jpeg', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/jpeg',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
+    });
+    test('validExtensions returns the expected result for image/webp', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/webp',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
+    });
+    test('validExtensions returns the expected result for image/gif', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/gif',
+        size: 0,
+      });
+      expect(fragment.validExtensions).toEqual(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
     });
   });
 
@@ -236,7 +269,7 @@ describe('Fragment class', () => {
     });
     test('formats returns the expected result for html', () => {
       const fragment = new Fragment({
-        ownerId: '<p>1234</p>',
+        ownerId: '1234',
         type: 'text/html; charset=utf-8',
         size: 0,
       });
@@ -244,11 +277,43 @@ describe('Fragment class', () => {
     });
     test('formats returns the expected result for json', () => {
       const fragment = new Fragment({
-        ownerId: '{"code": 1234}',
+        ownerId: '1234',
         type: 'application/json',
         size: 0,
       });
       expect(fragment.formats).toEqual(['application/json', 'text/plain']);
+    });
+    test('formats returns the expected result for image/png', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/png',
+        size: 1238458109,
+      });
+      expect(fragment.formats).toEqual(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+    });
+    test('formats returns the expected result for image/jpeg', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/jpeg',
+        size: 1238458109,
+      });
+      expect(fragment.formats).toEqual(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+    });
+    test('formats returns the expected result for image/webp', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/webp',
+        size: 1238458109,
+      });
+      expect(fragment.formats).toEqual(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+    });
+    test('formats returns the expected result for image/gif', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'image/gif',
+        size: 1238458109,
+      });
+      expect(fragment.formats).toEqual(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
     });
   });
 
@@ -347,9 +412,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual('<h1>Heading 1</h1>\n');
       expect(mimeType).toEqual('text/html');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/markdown conversion to txt', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
       await fragment.save();
@@ -358,9 +420,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual('# Heading 1');
       expect(mimeType).toEqual('text/plain');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/markdown conversion to itself (markdown)', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
       await fragment.save();
@@ -369,9 +428,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual(Buffer.from('# Heading 1'));
       expect(mimeType).toEqual('text/markdown');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/markdown conversion to itself passing empty string', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
       await fragment.save();
@@ -380,9 +436,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual(Buffer.from('# Heading 1'));
       expect(mimeType).toEqual('text/markdown');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/html conversion to txt', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
       await fragment.save();
@@ -391,9 +444,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual('<h1>Heading 1</h1>');
       expect(mimeType).toEqual('text/plain');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/html conversion to itself (html)', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
       await fragment.save();
@@ -402,9 +452,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual(Buffer.from('<h1>Heading 1</h1>'));
       expect(mimeType).toEqual('text/html');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/html conversion to itself passing empty string', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
       await fragment.save();
@@ -413,9 +460,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual(Buffer.from('<h1>Heading 1</h1>'));
       expect(mimeType).toEqual('text/html');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/plain conversion to txt', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
       await fragment.save();
@@ -424,9 +468,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual('Fragment data');
       expect(mimeType).toEqual('text/plain');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('text/plain conversion to itself passing empty string', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
       await fragment.save();
@@ -435,9 +476,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual(Buffer.from('Fragment data'));
       expect(mimeType).toEqual('text/plain');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('application/json conversion to txt', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'application/json', size: 0 });
       await fragment.save();
@@ -446,9 +484,6 @@ describe('Fragment class', () => {
       expect(convertedData).toEqual('{"car": "bmw"}');
       expect(mimeType).toEqual('text/plain');
     });
-  });
-
-  describe('getConvertedData()', () => {
     test('application/json conversion to itself passing empty string', async () => {
       const fragment = new Fragment({ ownerId: '1234', type: 'application/json', size: 0 });
       await fragment.save();
@@ -456,6 +491,165 @@ describe('Fragment class', () => {
       const { convertedData, mimeType } = await fragment.getConvertedData('');
       expect(convertedData).toEqual(Buffer.from('{"car": "bmw"}'));
       expect(mimeType).toEqual('application/json');
+    });
+
+    test('image/png conversion', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: `image/png` });
+      await fragment.setData(
+        fs.readFileSync(path.join(__dirname, '..', `test_assets`, 'test_png.png'))
+      );
+      await fragment.save();
+      const extension_type = [
+        {
+          extension: '.png',
+          type: 'image/png',
+        },
+        {
+          extension: '.jpeg',
+          type: 'image/jpeg',
+        },
+        {
+          extension: '.webp',
+          type: 'image/webp',
+        },
+        {
+          extension: '.gif',
+          type: 'image/gif',
+        },
+      ];
+      extension_type.forEach(async ({ type, extension }) => {
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        expect(mimeType).toBe(type);
+        expect(convertedData).not.toBeNull();
+      });
+    });
+
+    test('image/jpeg conversion', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: `image/jpeg` });
+
+      await fragment.setData(
+        fs.readFileSync(path.join(__dirname, '..', `test_assets`, 'test_jpeg.jpeg'))
+      );
+      await fragment.save();
+      const extension_type = [
+        {
+          extension: '.png',
+          type: 'image/png',
+        },
+        {
+          extension: '.jpeg',
+          type: 'image/jpeg',
+        },
+        {
+          extension: '.webp',
+          type: 'image/webp',
+        },
+        {
+          extension: '.gif',
+          type: 'image/gif',
+        },
+      ];
+      extension_type.forEach(async ({ type, extension }) => {
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        expect(mimeType).toBe(type);
+        expect(convertedData).not.toBeNull();
+      });
+    });
+
+    test('image/jpeg conversion', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: `image/jpeg` });
+
+      await fragment.setData(
+        fs.readFileSync(path.join(__dirname, '..', `test_assets`, 'test_jpeg.jpeg'))
+      );
+      await fragment.save();
+      const extension_type = [
+        {
+          extension: '.png',
+          type: 'image/png',
+        },
+        {
+          extension: '.jpeg',
+          type: 'image/jpeg',
+        },
+        {
+          extension: '.webp',
+          type: 'image/webp',
+        },
+        {
+          extension: '.gif',
+          type: 'image/gif',
+        },
+      ];
+      extension_type.forEach(async ({ type, extension }) => {
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        expect(mimeType).toBe(type);
+        expect(convertedData).not.toBeNull();
+      });
+    });
+
+    test('image/webp conversion', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: `image/webp` });
+
+      await fragment.setData(
+        fs.readFileSync(path.join(__dirname, '..', `test_assets`, 'test_webp.webp'))
+      );
+      await fragment.save();
+      const extension_type = [
+        {
+          extension: '.png',
+          type: 'image/png',
+        },
+        {
+          extension: '.jpeg',
+          type: 'image/jpeg',
+        },
+        {
+          extension: '.webp',
+          type: 'image/webp',
+        },
+        {
+          extension: '.gif',
+          type: 'image/gif',
+        },
+      ];
+      extension_type.forEach(async ({ type, extension }) => {
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        expect(mimeType).toBe(type);
+        expect(convertedData).not.toBeNull();
+      });
+    });
+
+    test('image/gif conversion', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: `image/gif` });
+
+      await fragment.setData(
+        fs.readFileSync(path.join(__dirname, '..', `test_assets`, 'test_gif.gif'))
+      );
+      await fragment.save();
+      const extension_type = [
+        {
+          extension: '.png',
+          type: 'image/png',
+        },
+        {
+          extension: '.jpeg',
+          type: 'image/jpeg',
+        },
+        {
+          extension: '.webp',
+          type: 'image/webp',
+        },
+        {
+          extension: '.gif',
+          type: 'image/gif',
+        },
+      ];
+      extension_type.forEach(async ({ type, extension }) => {
+        const { convertedData, mimeType } = await fragment.getConvertedData(extension);
+        expect(mimeType).toBe(type);
+        expect(convertedData).not.toBeNull();
+      });
     });
   });
 });
