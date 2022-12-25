@@ -1,12 +1,16 @@
 # Fragments
-
 Fragments - Cloud Computing project from Cloud Computing course at Seneca College.
 
+Medium Article about this project: https://medium.com/@andreibatomunkuev/cloud-computing-79f47c4463fa
+
 Docker Hub repository: https://hub.docker.com/repository/docker/abatomunkuev1/fragments
+
+<img width="1098" alt="image" src="https://user-images.githubusercontent.com/55283735/209460866-d5186ef8-b400-4002-aed6-03ab224dfe0f.png">
 
 ## Contents of the page
 
 - [Task](https://github.com/abatomunkuev/fragments#task)
+- [System Design](https://github.com/abatomunkuev/fragments#system-design)
 - [Tech stack WIP](https://github.com/abatomunkuev/fragments#tech-stack-wip)
 - [Development](https://github.com/abatomunkuev/fragments#development)
 - [Log](https://github.com/abatomunkuev/fragments#log)
@@ -19,7 +23,14 @@ Develop a new highly-scalable microservice which will help automate the processe
 - Collect reports from mobile devices in different formats (plain-text, json, markdown, HTML)
 - Collect image files from device cameras.
 
+## System Design
+<img width="1098" alt="image" src="https://user-images.githubusercontent.com/55283735/209460898-14c33293-b651-47cc-b1d0-59b938070b6d.png">
+
+
 ## Tech Stack
+
+<img width="1098" alt="image" src="https://user-images.githubusercontent.com/55283735/209460911-cbaf3035-ff6b-498c-9f6f-440c50234d4a.png">
+
 
 | Technologies, Services            | Description                                                                                                                                                                                |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
